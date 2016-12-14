@@ -1,4 +1,5 @@
-'use strict'
+(function(){
+
 
 var IS_NODE = false
 if(typeof(module) !== 'undefined'){
@@ -9,14 +10,10 @@ var PI = Math.PI
 
 var scadStr = "\n"
 
-if(IS_NODE) exports.str = scadStr
 
 function deg2rad(deg){
 	return deg / 360 * 2 * PI
 }
-if(IS_NODE) exports.deg2rad = deg2rad
-
-
 
 function rad2deg(rad){
 	return rad / 2 / PI * 360
@@ -302,45 +299,95 @@ function save(content, fn){
 }
 
 
+function Scad(str){
+	if(typeof(str) == 'undefined'){
+		this.str = ""
+	}else{
+		this.str = str
+	}
+}
+
+Scad.prototype = {
+	toString: function() {return this.str},
+	deg2rad : deg2rad,
+	rad2deg : rad2deg,
+	getPointsOnCircle :getPointsOnCircle,
+	distanceToDegOnCircle : distanceToDegOnCircle,
+	a2v:a2v,
+	polygon:polygon,
+	circle:circle,
+	square:square,
+	rect:square,
+	text:text,
+	cube:cube,
+	sphere:sphere,
+	ball:sphere,
+	cylinder:cylinder,
+	polyhedron:polyhedron,
+	difference:difference,
+	minus:difference,
+	union:union,
+	add:union,
+	intersection:intersection,
+	shared:intersection,
+	rotate:function(x,y,z) {this.str = rotate(this.str, x,y,z); return this},
+	translate:function(x,y,z) {this.str = translate(this.str, x,y,z); return this},
+	scale:scale,
+	resize:resize,
+	mirror:mirror,
+	offset:offset,
+	minkowski:minkowski,
+	hull:hull,
+	projection:projection,
+	linear_extrude:linear_extrude,
+	rotate_extrude:rotate_extrude,
+	for:scadfor,
+	color:color,
+	module:scadmodule,
+	children:children,
+	save:save,
+}
+Scad.deg2rad = deg2rad
+Scad.rad2deg = rad2deg
+Scad.getPointsOnCircle =getPointsOnCircle
+Scad.distanceToDegOnCircle = distanceToDegOnCircle
+Scad.a2v=a2v
+Scad.polygon=polygon
+Scad.circle=circle
+Scad.square=square
+Scad.rect=square
+Scad.text=text
+Scad.cube=cube
+Scad.sphere=sphere
+Scad.ball=sphere
+Scad.cylinder=cylinder
+Scad.polyhedron=polyhedron
+Scad.difference=difference
+Scad.minus=difference
+Scad.union=union
+Scad.add=union
+Scad.intersection=intersection
+Scad.shared=intersection
+Scad.rotate=rotate
+Scad.translate=translate
+Scad.scale=scale
+Scad.resize=resize
+Scad.mirror=mirror
+Scad.offset=offset
+Scad.minkowski=minkowski
+Scad.hull=hull
+Scad.projection=projection
+Scad.linear_extrude=linear_extrude
+Scad.rotate_extrude=rotate_extrude
+Scad.for=scadfor
+Scad.color=color
+Scad.module=scadmodule
+Scad.children=children
+Scad.save=save
 /////////////// exports ////////////////////////////////////
 if(IS_NODE){
-	module.exports.deg2rad = deg2rad
-	module.exports.rad2deg = rad2deg
-	module.exports.getPointsOnCircle =getPointsOnCircle
-	module.exports.distanceToDegOnCircle = distanceToDegOnCircle
-	module.exports.a2v=a2v
-	module.exports.polygon=polygon
-	module.exports.circle=circle
-	module.exports.square=square
-	module.exports.rect=square
-	module.exports.text=text
-	module.exports.cube=cube
-	module.exports.sphere=sphere
-	module.exports.ball=sphere
-	module.exports.cylinder=cylinder
-	module.exports.polyhedron=polyhedron
-	module.exports.difference=difference
-	module.exports.minus=difference
-	module.exports.union=union
-	module.exports.add=union
-	module.exports.intersection=intersection
-	module.exports.shared=intersection
-	module.exports.rotate=rotate
-	module.exports.translate=translate
-	module.exports.scale=scale
-	module.exports.resize=resize
-	module.exports.mirror=mirror
-	module.exports.offset=offset
-	module.exports.minkowski=minkowski
-	module.exports.hull=hull
-	module.exports.projection=projection
-	module.exports.linear_extrude=linear_extrude
-	module.exports.rotate_extrude=rotate_extrude
-	module.exports.for=scadfor
-	module.exports.color=color
-	module.exports.module=scadmodule
-	module.exports.children=children
-	module.exports.save=save
-
-
+	module.exports = Scad
 }
+
+
+})()
