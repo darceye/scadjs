@@ -1,3 +1,10 @@
+/* scad.js
+* version: 1.1.0
+* date: 2017-3-12
+* copyright: Jacques Yang
+* License: MIT
+*/
+
 (function(){
 
 
@@ -324,10 +331,10 @@ Scad.prototype = {
 	// ball:sphere,
 	// cylinder:cylinder,
 	// polyhedron:polyhedron,
-	// difference:difference,
-	// minus:difference,
-	// union:union,
-	// add:union,
+	difference: function(b){this.str = difference(this, b); return this},
+	minus: this.difference,
+	union: function(){this.str = union.apply(this, arguments); return this},
+	add: this.union,
 	// intersection:intersection,
 	// shared:intersection,
 	rotate:function(x,y,z) {this.str = rotate(this.str, x,y,z); return this},
@@ -346,6 +353,8 @@ Scad.prototype = {
 	// module:scadmodule,
 	// children:children,
 	// save:save,
+	tranparent: function(){this.str = "#"+this.str; return this},
+	_: function(){this.str = "#"+this.str; return this},
 }
 Scad.deg2rad = deg2rad
 Scad.rad2deg = rad2deg
