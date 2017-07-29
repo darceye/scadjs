@@ -310,7 +310,7 @@ function Scad(str){
 	if(typeof(str) == 'undefined'){
 		this.str = ""
 	}else{
-		this.str = str
+		this.str = str.toString()
 	}
 }
 
@@ -333,7 +333,7 @@ Scad.prototype = {
 	// polyhedron:polyhedron,
 	difference: function(b){this.str = difference(this, b); return this},
 	minus: this.difference,
-	union: function(){this.str = union.apply(this, arguments); return this},
+	union: function(){this.str = union.apply(this,[this.str ,...arguments]); return this}, 
 	add: this.union,
 	// intersection:intersection,
 	// shared:intersection,
